@@ -1,30 +1,30 @@
 <?php
 
-    $taskList = $_POST['test'];
+    if(isset($_POST['test'])){
+       
+        $taskList = $_POST['test'];
+       const SERVER_NAME = "localhost";
+       const DB_USER = "root";
+       const DB_PASS = "password";
+       const DB_NAME = "practice_test";
 
+       $connection = new mysqli(SERVER_NAME, DB_USER, DB_PASS, DB_NAME);
 
+       if($connection->connect_error){
 
+         die("Connection Not Successful. Please try again.");
+       }
 
-   const SERVER_NAME = "localhost";
-   const DB_USER = "root";
-   const DB_PASS = "password";
-   const DB_NAME = "practice_test";
+    $query = "INSERT INTO tasks (task) VALUES ('${taskList}')";
 
-   $connection = new mysqli(SERVER_NAME, DB_USER, DB_PASS, DB_NAME);
+      if($connection->query($query) == false){
 
-   if($connection->connect_error){
+        die("Query not submitted." . $connection->error);
+      }
 
-     die("Connection Not Successful. Please try again.");
-   }
-
-$query = "INSERT INTO tasks (task) VALUES ('${taskList}')";
-
-  if($connection->query($query) == false){
-
-    die("Query not submitted." . $connection->error);
-  }
-
-  echo "Query was successfully executed";
+      echo "Query was successfully executed";
+        
+    }
 
 ?>
 <html>
